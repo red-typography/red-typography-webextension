@@ -1,0 +1,131 @@
+.settings {
+}
+
+.settings__default {
+    margin-top: 5px;
+    font-size: 12px;
+    float: right;
+}
+
+.settings__title {
+    font-size: 20px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.settings__block {
+    border-top: 1px solid #e0e0e0;
+}
+
+.settings__block,
+.settings__title {
+    padding: 10px 10px 10px 20px;
+}
+
+.settings__block_first {
+    border-top: 0;
+}
+
+.settings__fieldset {
+    clear: both;
+
+    margin: 10px 10px 0 8px;
+    padding: 0 1em 0 .5em;
+
+    border: 1px solid transparent;
+    border-radius: 5px;
+}
+
+.settings__fieldset:first-child {
+    margin-top: 0;
+}
+
+.settings__all-rules {
+    margin-bottom: 50px;
+}
+
+.settings__rules-title {
+    display: inline-block;
+    font-size: 16px;
+}
+
+.settings__rule {
+    line-height: 1.6em;
+
+    margin-left: 7px;
+    margin-bottom: 5px;
+}
+
+.settings__rule-checkbox {
+    margin-right: 5px;
+}
+
+.settings__legend {
+    font-weight: bold;
+
+    margin: 0;
+    padding: 3px 7px;
+
+    cursor: pointer;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+
+    border-radius: 5px;
+    background: #f0f0f0;
+    border: 1px solid #e5e5e5;
+}
+
+.settings__legend:hover {
+    border: 1px solid #c5c5c5;
+}
+
+.settings__fieldset .settings__rule {
+    display: none;
+}
+
+.settings__fieldset_visible .settings__rule {
+    display: block;
+}
+
+.settings__fieldset_visible {
+    margin-bottom: .5em;
+    padding: .5em .5em .2em .5em;
+
+    border: 1px solid #e0e0e0;
+}
+
+.settings__select-all-container {
+    float: right;
+    vertical-align: middle;
+}
+
+.settings__footer {
+    position: fixed;
+    bottom: 0;
+
+    width: auto;
+    padding: 5px 15px 5px 20px;
+
+    border-radius: 0 5px 0 0;
+
+    background: rgba(240, 240, 240, .8);
+}
+
+.settings__version {
+    display: inline-block;
+
+    font-size: .8em;
+
+    margin-left: 3px;
+}
+
+.settings__name,
+.settings__default,
+.settings__report-bug {
+    color: #4078c0;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.settings__report-bug {
+    margin-left: 1em;
+}

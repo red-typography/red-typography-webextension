@@ -1,0 +1,137 @@
+{
+    "extensionName": {
+        "message": "Red Typography"
+    },
+    "extensionDescription": {
+        "message": "Типографирование текста в полях ввода."
+    },
+    "typograf": {
+        "message": "Типограф"
+    },
+    "typograf_execute": {
+        "message": "Оттипографить"
+    },
+    "report_bug": {
+        "message": "Сообщить об ошибке"
+    },
+    "settings_title": {
+        "message": "Настройки"
+    },
+    "rules_title": {
+        "message": "Правила"
+    },
+    "selectAll": {
+        "message": "Выбрать все"
+    },
+    "def": {
+        "message": "По умолчанию"
+    },
+    "locale": {
+        "message": "Локаль: "
+    },
+    "mode": {
+        "message": "HTML-сущности: "
+    },
+    "mode_": {
+        "message": "UTF-8"
+    },
+    "mode_name": {
+        "message": "Имена"
+    },
+    "mode_digit": {
+        "message": "Цифры"
+    },
+    "mode_name_invisible": {
+        "message": "Имена, только для невидимых символов"
+    },
+    "mode_digit_invisible": {
+        "message": "Цифры, только для невидимых символов"
+    },
+    "locale_be": {
+        "message": "Белорусская"
+    },
+    "locale_bg": {
+        "message": "Болгарская"
+    },
+    "locale_ca": {
+        "message": "Каталанская"
+    },
+    "locale_cs": {
+        "message": "Чешская"
+    },
+    "locale_da": {
+        "message": "Датская"
+    },
+    "locale_de": {
+        "message": "Немецкая"
+    },
+    "locale_el": {
+        "message": "Греческая"
+    },
+    "locale_en_GB": {
+        "message": "Английская"
+    },
+    "locale_en_US": {
+        "message": "Американская"
+    },
+    "locale_eo": {
+        "message": "Эсперанто"
+    },
+    "locale_es": {
+        "message": "Испанская"
+    },
+    "locale_et": {
+        "message": "Эстонская"
+    },
+    "locale_fi": {
+        "message": "Финская"
+    },
+    "locale_fr": {
+        "message": "Французская"
+    },
+    "locale_ga": {
+        "message": "Ирландская"
+    },
+    "locale_hu": {
+        "message": "Венгерская"
+    },
+    "locale_it": {
+        "message": "Итальянская"
+    },
+    "locale_lv": {
+        "message": "Латвийская"
+    },
+    "locale_nl": {
+        "message": "Голландская"
+    },
+    "locale_no": {
+        "message": "Норвежская"
+    },
+    "locale_pl": {
+        "message": "Польская"
+    },
+    "locale_ro": {
+        "message": "Румынская"
+    },
+    "locale_ru": {
+        "message": "Русская"
+    },
+    "locale_sk": {
+        "message": "Словацкая"
+    },
+    "locale_sl": {
+        "message": "Словенская"
+    },
+    "locale_sr": {
+        "message": "Сербская"
+    },
+    "locale_sv": {
+        "message": "Шведская"
+    },
+    "locale_tr": {
+        "message": "Турецкая"
+    },
+    "locale_uk": {
+        "message": "Украинская"
+    }
+}

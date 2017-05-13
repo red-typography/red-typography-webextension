@@ -1,0 +1,31 @@
+html,
+body
+{
+    margin: 0;
+    padding: 0;
+    border: 0;
+    width: 400px;
+    height: 550px;
+}
+
+html,
+body,
+button, input, select
+{
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+}
+
+button, input, select
+{
+    margin-left: 0;
+    margin-right: 0;
+}
+
+label
+{
+    margin-left: 3px;
+
+    -webkit-user-select: none;
+    -moz-user-select: none;
+}

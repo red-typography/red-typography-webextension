@@ -1,0 +1,27 @@
+{
+  "title": "Red Typografy for Google Chrome",
+  "name": "red-typografy-webextension",
+  "description": "Prepare texts in text fields",
+  "version": "6.2.0",
+  "author": {
+    "name": "Denis Seleznev",
+    "email": "hcodes@yandex.ru",
+    "url": "https://github.com/typograf/red-typografy-webextension"
+  },
+  "homepage": "https://github.com/typograf/red-typografy-webextension",
+  "dependencies": {
+    "typograf": "6.x"
+  },
+  "devDependencies": {
+    "eslint": "3.x",
+    "gulp": "3.x",
+    "gulp-zip": "^4.0.0"
+  },
+  "scripts": {
+    "build": "gulp",
+    "eslint": "eslint .",
+    "test": "npm run-script eslint"
+  },
+  "license": "MIT",
+  "private": true
+}
