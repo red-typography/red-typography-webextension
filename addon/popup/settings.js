@@ -3,6 +3,10 @@
 (function() {
     var Settings = {
         init: function(data) {
+            var cl = isChrome ? 'chrome' : 'firefox';
+            document.documentElement.classList.add(cl);
+            document.body.classList.add(cl);
+
             data = data || {};
 
             var langUI = browser.i18n.getUILanguage();

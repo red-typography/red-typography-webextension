@@ -1,3 +1,4 @@
+addon_firefox
+addon_chrome
 node_modules
 *.zip
-*.xpi

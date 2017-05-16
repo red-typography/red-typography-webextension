@@ -29,3 +29,8 @@ label
     -webkit-user-select: none;
     -moz-user-select: none;
 }
+
+html.firefox,
+body.firefox {
+    overflow: hidden;
+}

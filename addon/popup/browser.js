@@ -1,10 +1,10 @@
 'use strict';
 
-if ('chrome' in this) {
+if ('browser' in this) {
+    this.isChrome = false;
+} else {
     this.browser = chrome;
     this.isChrome = true;
-} else {
-    this.isChrome = false;
 }
 
 this._ = function(id) {
