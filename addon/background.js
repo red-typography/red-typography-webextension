@@ -75,6 +75,21 @@ var App = {
             }
         });
 
+        browser.commands.onCommand.addListener(function(command) {
+            function getActiveTab(tabs) {
+                for (var tab of tabs) {
+                    browser.tabs.sendMessage(tab.id, {
+                        command: 'get-text'
+                    });
+                }
+            }
+
+            if (command === 'typograf-key') {
+                var querying = browser.tabs.query({currentWindow: true, active: true});
+                querying.then(getActiveTab, function(){});
+            }
+        });
+
         browser.runtime.onMessage.addListener((message, data) => {
             if (message && message.command === 'get-text') {
                 var text = message.text;

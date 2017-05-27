@@ -12,6 +12,15 @@
     "storage"
   ],
 
+  "commands": {
+    "typograf-key": {
+      "suggested_key": {
+        "default": "Alt+Shift+T"
+      },
+      "description": "Send a 'typograf-key' event"
+    }
+  },
+
   "background": {
     "scripts": [
         "popup/browser.js",

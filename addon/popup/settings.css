@@ -107,6 +107,7 @@ body.firefox .settings {
 .settings__footer {
     position: fixed;
     bottom: 0;
+    z-index: 10;
 
     width: auto;
     padding: 5px 15px 5px 20px;
