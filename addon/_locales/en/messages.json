@@ -3,7 +3,10 @@
         "message": "Red Typography"
     },
     "extensionDescription": {
-        "message": "Typography in input fields."
+        "message": "Typography in text fields."
+    },
+    "shortcut": {
+        "message": "Typography in text fields"
     },
     "typograf": {
         "message": "Typography"

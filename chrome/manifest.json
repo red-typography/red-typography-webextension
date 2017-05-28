@@ -17,7 +17,7 @@
       "suggested_key": {
         "default": "Alt+Shift+T"
       },
-      "description": "Send a 'typograf-key' event"
+      "description": "__MSG_shortcut__"
     }
   },
 

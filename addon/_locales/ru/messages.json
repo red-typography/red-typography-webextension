@@ -5,6 +5,9 @@
     "extensionDescription": {
         "message": "Типографирование текста в полях ввода."
     },
+    "shortcut": {
+        "message": "Оттипографить текст в текстовом поле"
+    },
     "typograf": {
         "message": "Типограф"
     },
