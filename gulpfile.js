@@ -4,8 +4,10 @@ const del = require('del');
 const gulp = require('gulp');
 const zip = require('gulp-zip');
 
+const browsers = ['chrome', 'firefox', 'opera'];
+
 gulp.task('del', function() {
-    return del(['./addon_chrome', './addon_firefox']);
+	return del(['./addon_chrome', './addon_firefox'])
 });
 
 gulp.task('copy-typograf', ['del'], function() {
@@ -15,26 +17,17 @@ gulp.task('copy-typograf', ['del'], function() {
         .pipe(gulp.dest('addon/popup/'));
 });
 
-gulp.task('chrome-copy', ['copy-typograf'], function() {
-    return gulp.src(['./addon/**/*', './chrome/**/*'])
-        .pipe(gulp.dest('./addon_chrome'));
+browsers.forEach(function(browser) {
+	gulp.task(`${browser}-copy`, ['copy-typograf'], function() {
+		return gulp.src([`./addon/**/*`, `./${browser}/**/*`])
+			.pipe(gulp.dest(`./addon_${browser}`));
+	});
+
+	gulp.task(`${browser}-pack`, [`${browser}-copy`], function() {
+		return gulp.src(`./addon_${browser}/**/*`)
+			.pipe(zip(`addon_${browser}.zip`))
+			.pipe(gulp.dest('.'));
+	});
 });
 
-gulp.task('firefox-copy', ['copy-typograf'], function() {
-    return gulp.src(['./addon/**/*', './firefox/**/*'])
-        .pipe(gulp.dest('./addon_firefox'));
-});
-
-gulp.task('chrome-pack', ['chrome-copy'], function() {
-    return gulp.src('./addon_chrome/**/*')
-        .pipe(zip('addon_chrome.zip'))
-        .pipe(gulp.dest('.'));
-});
-
-gulp.task('firefox-pack', ['firefox-copy'], function() {
-    return gulp.src('./addon_firefox/**/*')
-        .pipe(zip('addon_firefox.zip'))
-        .pipe(gulp.dest('.'));
-});
-
-gulp.task('default', ['chrome-pack', 'firefox-pack']);
+gulp.task('default', browsers.map(browser => browser + '-pack'));
