@@ -5,7 +5,7 @@
     "extensionDescription": {
         "message": "Typography in text fields."
     },
-    "shortcut": {
+    "commandShortcut": {
         "message": "Typography in text fields"
     },
     "typograf": {
@@ -16,6 +16,12 @@
     },
     "report_bug": {
         "message": "Report a bug"
+    },
+    "shortcut": {
+        "message": "Shortcut: "
+    },
+    "shortcut_using": {
+        "message": "Using in text fields."
     },
     "settings_title": {
         "message": "Settings"

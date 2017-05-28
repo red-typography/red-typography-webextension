@@ -7,6 +7,14 @@ body.firefox .settings {
     overflow-x: auto;
 }
 
+.settings__hint {
+	color: #999;
+}
+
+.settings__hidden {
+	visibility: hidden;
+}
+
 .settings__default {
     margin-top: 5px;
     font-size: 12px;
@@ -112,7 +120,10 @@ body.firefox .settings {
     width: auto;
     padding: 5px 15px 5px 20px;
 
+    border: 1px solid rgba(100, 100, 100, .2);
     border-radius: 0 5px 0 0;
+	border-bottom: 0;
+	border-left: 0;
 
     background: rgba(240, 240, 240, .8);
 }

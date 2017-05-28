@@ -17,7 +17,7 @@
       "suggested_key": {
         "default": "Alt+Shift+T"
       },
-      "description": "__MSG_shortcut__"
+      "description": "__MSG_commandShortcut__"
     }
   },
 

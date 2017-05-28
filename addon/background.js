@@ -3,7 +3,6 @@
 var App = {
     init: function() {
         this.initSettings();
-
         this.initStorage();
         this.initMenus();
     },
@@ -25,6 +24,7 @@ var App = {
             disableRule: {}
         };
     },
+
     initStorage: function() {
         var onLoad = data => {
                 if (data.settings) {
@@ -84,9 +84,14 @@ var App = {
                 }
             }
 
+			var params = {currentWindow: true, active: true};
             if (command === 'typograf-key') {
-                var querying = browser.tabs.query({currentWindow: true, active: true});
-                querying.then(getActiveTab, function(){});
+				if (isChrome) {
+					browser.tabs.query(params, getActiveTab);
+				} else {
+					var quering = browser.tabs.query(params);
+					querying.then(getActiveTab, function(){});
+				}
             }
         });
 

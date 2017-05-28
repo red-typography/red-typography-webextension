@@ -5,7 +5,7 @@
     "extensionDescription": {
         "message": "Типографирование текста в полях ввода."
     },
-    "shortcut": {
+    "commandShortcut": {
         "message": "Оттипографить текст в текстовом поле"
     },
     "typograf": {
@@ -16,6 +16,12 @@
     },
     "report_bug": {
         "message": "Сообщить об ошибке"
+    },
+    "shortcut": {
+        "message": "Клавиши: "
+    },
+    "shortcut_using": {
+        "message": "Используйте в текстовых полях."
     },
     "settings_title": {
         "message": "Настройки"

@@ -95,6 +95,9 @@
             var mode = document.createElement('select');
             mode.className = 'settings__mode';
 
+            block = document.createElement('div');
+            block.className = 'settings__block';
+
             ['', 'name', 'name-invisible', 'digit', 'digit-invisible'].forEach(function(item) {
                 var option = document.createElement('option');
                 option.value = item;
@@ -108,12 +111,29 @@
             block.appendChild(mode);
             container.appendChild(block);
 
+			var shortcut = document.createElement('div');
+            shortcut.textContent = _('shortcut') + 'ALT+Shift+T';
+			
+			var shortcutCap = document.createElement('span');
+			shortcutCap.className = 'settings__hidden';
+            shortcutCap.textContent = _('shortcut');
+
+			var shortcutHint = document.createElement('span');
+			shortcutHint.className = 'settings__hint';
+            shortcutHint.textContent = _('shortcut_using');
+
             block = document.createElement('div');
             block.className = 'settings__block';
+            block.appendChild(shortcut);
+            block.appendChild(shortcutCap);
+            block.appendChild(shortcutHint);
+            container.appendChild(block);
 
             var rulesTitle = document.createElement('div');
             rulesTitle.textContent = _('rules_title');
             rulesTitle.className = 'settings__rules-title';
+            block = document.createElement('div');			
+            block.className = 'settings__block';
             block.appendChild(rulesTitle);
 
             var selectAllContainer = document.createElement('div');
