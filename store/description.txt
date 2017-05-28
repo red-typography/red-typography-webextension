@@ -1,0 +1,31 @@
+Title:
+------
+RU
+Красная типографика
+
+EN
+Red Typography
+
+Short:
+------
+RU
+Типографирование текста в полях ввода. 
+
+EN
+Typography in input fields.
+
+Description:
+------------
+RU
+Типограф помогает автоматически расставить неразрывные пробелы, исправить мелкие опечатки, привести кавычки к правильному виду, заменить дефисы на тире в нужных местах и многое другое.
+
+EN
+Red Typography automatically helps to place non-breaking spaces, correct minor typos, allow the quotation marks to a correct format, replace the hyphens with dashes in the right places and much more.
+
+Site:
+-----
+https://github.com/typograf/red-typography-webextension
+
+E-mail:
+-------
+hcodes@yandex.ru
