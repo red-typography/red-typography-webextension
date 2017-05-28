@@ -47,6 +47,19 @@
                 settings: this._settings
             });
         },
+		buildHint: function(text) {
+            var hint = document.createElement('span');
+            hint.className = 'settings__hint';
+			hint.textContent = '?';
+
+            var hintText = document.createElement('div');
+            hintText.className = 'settings__hint-text';
+			hintText.textContent = text;
+			
+			hint.appendChild(hintText);
+
+			return hint;
+		},
         buildOptions: function() {
             var container = document.createElement('div');
             container.className = 'settings__options';
@@ -113,26 +126,17 @@
 
 			var shortcut = document.createElement('div');
             shortcut.textContent = _('shortcut') + 'ALT+Shift+T';
-			
-			var shortcutCap = document.createElement('span');
-			shortcutCap.className = 'settings__hidden';
-            shortcutCap.textContent = _('shortcut');
-
-			var shortcutHint = document.createElement('span');
-			shortcutHint.className = 'settings__hint';
-            shortcutHint.textContent = _('shortcut_using');
+			shortcut.appendChild(this.buildHint(_('shortcut_using')));
 
             block = document.createElement('div');
             block.className = 'settings__block';
             block.appendChild(shortcut);
-            block.appendChild(shortcutCap);
-            block.appendChild(shortcutHint);
             container.appendChild(block);
 
             var rulesTitle = document.createElement('div');
             rulesTitle.textContent = _('rules_title');
             rulesTitle.className = 'settings__rules-title';
-            block = document.createElement('div');			
+            block = document.createElement('div');
             block.className = 'settings__block';
             block.appendChild(rulesTitle);
 

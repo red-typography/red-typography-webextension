@@ -1,37 +1,84 @@
 body.firefox .settings {
     position: absolute;
-    left: 0;
     top: 0;
+    left: 0;
+
+    overflow-x: auto;
+
     width: 100%;
     height: 100%;
-    overflow-x: auto;
 }
 
 .settings__hint {
-	color: #999;
+    position: relative;
+
+    margin-left: .4em;
+    padding: 1px 5px;
+
+    color: #fff;
+    border-radius: 20px;
+    background: #888;
+
+    font-size: 9px;
+}
+
+.settings__hint:hover .settings__hint-text {
+    visibility: visible;
+
+    transition-delay: 0s;
+
+    opacity: 1;
+}
+
+.settings__hint-text {
+    position: absolute;
+    z-index: 100;
+    top: 100%;
+    left: 0;
+
+    visibility: hidden;
+
+    min-width: 200px;
+    max-width: 300px;
+    margin-top: 5px;
+    padding: .3em .6em;
+
+    transition: .2s ease opacity, 0s ease visibility .2s;
+    transform: translateX(-50%);
+
+    opacity: 0;
+    color: #222;
+    border: 1px solid #e5e5e5;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, .2);
+
+    font-size: 12px;
+    line-height: 1.7;
 }
 
 .settings__hidden {
-	visibility: hidden;
+    visibility: hidden;
 }
 
 .settings__default {
-    margin-top: 5px;
-    font-size: 12px;
     float: right;
+
+    margin-top: 5px;
+
+    font-size: 12px;
 }
 
 .settings__title {
-    font-size: 20px;
     border-bottom: 1px solid #e0e0e0;
+
+    font-size: 20px;
 }
 
 .settings__block {
     border-top: 1px solid #e0e0e0;
 }
 
-.settings__block,
-.settings__title {
+.settings__block, .settings__title {
     padding: 10px 10px 10px 20px;
 }
 
@@ -59,14 +106,15 @@ body.firefox .settings {
 
 .settings__rules-title {
     display: inline-block;
+
     font-size: 16px;
 }
 
 .settings__rule {
-    line-height: 1.6em;
-
-    margin-left: 7px;
     margin-bottom: 5px;
+    margin-left: 7px;
+
+    line-height: 1.6em;
 }
 
 .settings__rule-checkbox {
@@ -74,18 +122,18 @@ body.firefox .settings {
 }
 
 .settings__legend {
-    font-weight: bold;
-
     margin: 0;
     padding: 3px 7px;
 
     cursor: pointer;
-    -moz-user-select: none;
     -webkit-user-select: none;
+       -moz-user-select: none;
 
+    border: 1px solid #e5e5e5;
     border-radius: 5px;
     background: #f0f0f0;
-    border: 1px solid #e5e5e5;
+
+    font-weight: bold;
 }
 
 .settings__legend:hover {
@@ -109,39 +157,38 @@ body.firefox .settings {
 
 .settings__select-all-container {
     float: right;
+
     vertical-align: middle;
 }
 
 .settings__footer {
     position: fixed;
-    bottom: 0;
     z-index: 10;
+    bottom: 0;
 
     width: auto;
     padding: 5px 15px 5px 20px;
 
     border: 1px solid rgba(100, 100, 100, .2);
+    border-bottom: 0;
+    border-left: 0;
     border-radius: 0 5px 0 0;
-	border-bottom: 0;
-	border-left: 0;
-
     background: rgba(240, 240, 240, .8);
 }
 
 .settings__version {
     display: inline-block;
 
-    font-size: .8em;
-
     margin-left: 3px;
+
+    font-size: .8em;
 }
 
-.settings__name,
-.settings__default,
-.settings__report-bug {
-    color: #4078c0;
-    text-decoration: none;
+.settings__name, .settings__default, .settings__report-bug {
     white-space: nowrap;
+    text-decoration: none;
+
+    color: #4078c0;
 }
 
 .settings__report-bug {
