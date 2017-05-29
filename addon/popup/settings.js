@@ -342,7 +342,7 @@
                 this._settings[checked ? 'enableRule' : 'disableRule'][rule.name] = true;
             }, this);
 
-            this.saveSettings({
+            this.save({
                 enableRule: this._settings.enableRule,
                 disableRule: this._settings.disableRule
             });
