@@ -13,13 +13,20 @@ body.firefox .settings {
     position: relative;
 
     margin-left: .4em;
-    padding: 1px 5px;
+	display: inline-block;
+	width: 12px;
+	height: 12px;
+	text-align: center;
+	vertical-align: middle;
+	line-height: 12px;
+	cursor: default;
 
-    color: #fff;
-    border-radius: 20px;
-    background: #888;
+    color: #222;
+	border: 1px solid rgba(0, 0, 0, .2);
+    border-radius: 100%;
+    background: #e5e5e5;
 
-    font-size: 9px;
+    font-size: 8px;
 }
 
 .settings__hint:hover .settings__hint-text {
@@ -38,10 +45,10 @@ body.firefox .settings {
 
     visibility: hidden;
 
-    min-width: 200px;
     max-width: 300px;
     margin-top: 5px;
     padding: .3em .6em;
+	white-space: nowrap;
 
     transition: .2s ease opacity, 0s ease visibility .2s;
     transform: translateX(-50%);

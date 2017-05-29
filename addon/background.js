@@ -89,7 +89,7 @@ var App = {
 				if (isChrome) {
 					browser.tabs.query(params, getActiveTab);
 				} else {
-					var quering = browser.tabs.query(params);
+					var querying = browser.tabs.query(params);
 					querying.then(getActiveTab, function(){});
 				}
             }

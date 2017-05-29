@@ -1,4 +1,7 @@
 gulpfile.js
 .*
+addon_chrome/
+addon_firefox/
+addon_opera/
 node_modules/**
 addon/popup/typograf.all.js
