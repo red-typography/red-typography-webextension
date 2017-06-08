@@ -218,7 +218,7 @@
                     var name = rule.name;
                     var buf = Typograf.titles[name];
                     var title = this._typograf.execute(
-                        buf[this.langUI] || buf.common || this.defaultLocale, {locale: [this.langUI, this.defaultLocale] }
+                        buf[this.langUI] || buf.common || buf[this.defaultLocale], {locale: [this.langUI, this.defaultLocale] }
                     );
                     var id = 'rule-' + name.replace(/\//g, '-');
                     var defHash = this._defRules();
