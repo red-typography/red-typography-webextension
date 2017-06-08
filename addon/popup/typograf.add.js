@@ -1,7 +1,8 @@
 Object.assign(Typograf, {
     groupsByName: {},
     getGroupTitle: function(name, lang) {
-        return Typograf.groupsByName[name].title[lang];
+        var group = Typograf.groupsByName[name];
+        return group.title[lang] || group.title['en-US'];
     },
     getGroupIndex: function(groupName) {
         return Typograf.groupsByName[groupName].index;

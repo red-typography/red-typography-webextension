@@ -2,6 +2,7 @@
 
 (function() {
     var Settings = {
+        defaultLocale: 'en-US',
         init: function(data) {
             var cl = isChrome ? 'chrome' : 'firefox';
             document.documentElement.classList.add(cl);
@@ -12,7 +13,7 @@
             var langUI = browser.i18n.getUILanguage();
 
             if (!Typograf.hasLocale(langUI)) {
-                langUI = 'en-US';
+                langUI = this.defaultLocale;
             }
 
             this.langUI = langUI;
@@ -47,19 +48,19 @@
                 settings: this._settings
             });
         },
-		buildHint: function(text) {
+        buildHint: function(text) {
             var hint = document.createElement('span');
             hint.className = 'settings__hint';
-			hint.textContent = '?';
+            hint.textContent = '?';
 
             var hintText = document.createElement('div');
             hintText.className = 'settings__hint-text';
-			hintText.textContent = text;
-			
-			hint.appendChild(hintText);
+            hintText.textContent = text;
 
-			return hint;
-		},
+            hint.appendChild(hintText);
+
+            return hint;
+        },
         buildOptions: function() {
             var container = document.createElement('div');
             container.className = 'settings__options';
@@ -124,9 +125,9 @@
             block.appendChild(mode);
             container.appendChild(block);
 
-			var shortcut = document.createElement('div');
+            var shortcut = document.createElement('div');
             shortcut.textContent = _('shortcut') + 'ALT+Shift+T';
-			shortcut.appendChild(this.buildHint(_('shortcut_using')));
+            shortcut.appendChild(this.buildHint(_('shortcut_using')));
 
             block = document.createElement('div');
             block.className = 'settings__block';
@@ -200,9 +201,9 @@
             groups.forEach(function(group) {
                 var groupName = group[0]._group;
                 var groupTitle = this._typograf.execute(
-                        Typograf.getGroupTitle(groupName, this.langUI),
-                        {locale: this.langUI}
-                    );
+                    Typograf.getGroupTitle(groupName, this.langUI),
+                    {locale: this.langUI}
+                );
 
                 var fieldset = document.createElement('fieldset');
                 fieldset.className = 'settings__fieldset';
@@ -217,7 +218,7 @@
                     var name = rule.name;
                     var buf = Typograf.titles[name];
                     var title = this._typograf.execute(
-                        buf[this.langUI] || buf.common, {locale: [this.langUI, 'en-US'] }
+                        buf[this.langUI] || buf.common || this.defaultLocale, {locale: [this.langUI, this.defaultLocale] }
                     );
                     var id = 'rule-' + name.replace(/\//g, '-');
                     var defHash = this._defRules();
@@ -382,8 +383,8 @@
         },
         _splitGroups: function(rules) {
             var currentGroupName,
-                currentGroup,
-                groups = [];
+            currentGroup,
+            groups = [];
 
             rules.forEach(function(rule) {
                 var groupName = rule._group;
@@ -405,7 +406,7 @@
             groups.forEach(function(group) {
                 group.sort(function(a, b) {
                     var titleA = titles[a.name],
-                      titleB = titles[b.name];
+                    titleB = titles[b.name];
 
                     return (titleA[locale] || titleA.common) > (titleB[locale] || titleB.common) ? 1 : -1;
                 });

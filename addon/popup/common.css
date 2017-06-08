@@ -1,6 +1,5 @@
 html,
-body
-{
+body {
     margin: 0;
     padding: 0;
     border: 0;
@@ -8,29 +7,26 @@ body
     height: 550px;
 }
 
+html.firefox,
+body.firefox {
+    overflow: hidden;
+}
+
 html,
 body,
-button, input, select
-{
+button, input, select {
     font-family: Arial, sans-serif;
     font-size: 12px;
 }
 
-button, input, select
-{
+button, input, select {
     margin-left: 0;
     margin-right: 0;
 }
 
-label
-{
+label {
     margin-left: 3px;
 
     -webkit-user-select: none;
     -moz-user-select: none;
-}
-
-html.firefox,
-body.firefox {
-    overflow: hidden;
 }
