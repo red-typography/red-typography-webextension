@@ -4,7 +4,7 @@
 ## Поддерживаемые браузеры
 - [Mozilla Firefox](https://addons.mozilla.org/ru/firefox/addon/typografy)
 - [Google Chrome](https://chrome.google.com/webstore/detail/red-typography/dgmmkhdeghobfcedlnmgbncknnfjhnmo)
-- Opera и Яндекс.Браузер
+- [Opera и Яндекс.Браузер](https://addons.opera.com/ru/extensions/details/red-typography/)
 
 Контекстное меню:  
 <img src="https://raw.githubusercontent.com/typograf/red-typography-webextension/master/screenshots/scr1.png" />
