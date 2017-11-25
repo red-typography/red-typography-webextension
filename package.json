@@ -1,5 +1,5 @@
 {
-  "title": "Red Typografy for Google Chrome",
+  "title": "Red Typography for web extensions",
   "name": "red-typografy-webextension",
   "description": "Prepare texts in text fields",
   "version": "6.2.0",
@@ -10,7 +10,7 @@
   },
   "homepage": "https://github.com/typograf/red-typografy-webextension",
   "dependencies": {
-    "typograf": "6.x"
+    "typograf": "^6.6.0"
   },
   "devDependencies": {
     "del": "^2.2.2",

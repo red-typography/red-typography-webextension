@@ -7,7 +7,7 @@ const zip = require('gulp-zip');
 const browsers = ['chrome', 'firefox', 'opera'];
 
 gulp.task('del', function() {
-	return del(['./addon_chrome', './addon_firefox'])
+	return del(browsers.map(bro => './addon_' + bro));
 });
 
 gulp.task('copy-typograf', ['del'], function() {
