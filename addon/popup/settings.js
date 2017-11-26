@@ -247,6 +247,7 @@ class Settings {
         } else {
             this._rulesContainer = document.createElement('div');
             this._rulesContainer.className = 'settings__all-rules';
+            this._container.appendChild(this._rulesContainer);
         }
 
         groups.forEach(function(group) {
@@ -265,15 +266,17 @@ class Settings {
 
             fieldset.appendChild(legend);
 
+            let counter = 0;
             group.forEach(function(rule) {
                 const dom = this.createRule(rule);
-                dom && fieldset.appendChild(dom);
+                if (dom) {
+                    fieldset.appendChild(dom);
+                    counter++;
+                }
             }, this);
 
-            this._rulesContainer.appendChild(fieldset);
+            counter && this._rulesContainer.appendChild(fieldset);
         }, this);
-
-        this._container.appendChild(this._rulesContainer);
     }
 
     createRule(rule) {
