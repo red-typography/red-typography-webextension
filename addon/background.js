@@ -1,34 +1,43 @@
 'use strict';
 
-var App = {
-    init: function() {
+class App {
+    constructor() {
         this.initSettings();
         this.initStorage();
         this.initMenus();
-    },
+    }
 
-    getDefaultLocale: function(rawLocale) {
+    getDefaultLocale(rawLocale) {
         let locale = rawLocale || browser.i18n.getUILanguage();
+ 
         if (!Typograf.hasLocale(locale)) {
             locale = 'en-US';
         }
 
         return locale;
-    },
+    }
 
-    initSettings: function() {
+    initSettings() {
         this._settings = {
             locale: this.getDefaultLocale(''),
             type: '',
             enableRule: {},
             disableRule: {}
         };
-    },
+    }
 
-    initStorage: function() {
-        var onLoad = data => {
+    initStorage() {
+        const onLoad = data => {
                 if (data.settings) {
                     this._settings = data.settings;
+                    
+                    // TODO: legacy
+                    if (data.settings && data.settings.mode) {
+                        if (data.settings.mode.search('-invisible') !== -1) {
+                            data.settings.type = data.settings.mode.replace('-invisible', '');
+                            data.settings.onlyInvisible = true;
+                        }
+                    }
                 } else {
                     this.initSettings();
                 }
@@ -51,14 +60,14 @@ var App = {
         } else {
             browser.storage.local.get('settings').then(onLoad, onError);
         }
-    },
+    }
 
-    update: function() {
+    update() {
         this.updateActionButton();
         this.updateTypograf();
-    },
+    }
 
-    initMenus: function() {
+    initMenus() {
         const menus = browser.contextMenus;
 
         menus.create({
@@ -77,19 +86,19 @@ var App = {
 
         browser.commands.onCommand.addListener(function(command) {
             function getActiveTab(tabs) {
-                for (var tab of tabs) {
+                for (let tab of tabs) {
                     browser.tabs.sendMessage(tab.id, {
                         command: 'get-text'
                     });
                 }
             }
 
-			var params = {currentWindow: true, active: true};
+			const params = {currentWindow: true, active: true};
             if (command === 'typograf-key') {
 				if (isChrome) {
 					browser.tabs.query(params, getActiveTab);
 				} else {
-					var querying = browser.tabs.query(params);
+					const querying = browser.tabs.query(params);
 					querying.then(getActiveTab, function(){});
 				}
             }
@@ -97,7 +106,7 @@ var App = {
 
         browser.runtime.onMessage.addListener((message, data) => {
             if (message && message.command === 'get-text') {
-                var text = message.text;
+                let text = message.text;
                 if (message.selectionStart !== message.selectionEnd) {
                     text = message.text.substring(message.selectionStart, message.selectionEnd);
                 }
@@ -111,37 +120,33 @@ var App = {
                 });
             }
         });
-    },
+    }
 
-    updateActionButton: function() {
+    updateActionButton() {
         const action = browser.browserAction;
 
         action.setBadgeBackgroundColor({color: '#A00'});
-        action.setBadgeText({text: this.getDefaultLocale(this._settings.locale).toUpperCase()});
-    },
+        action.setBadgeText({
+            text: this.getDefaultLocale(this._settings.locale).toUpperCase()
+        });
+    }
 
-    updateTypograf: function() {
+    updateTypograf() {
         const settings = this._settings;
         this._typograf = new Typograf({
             locale: [settings.locale, 'en-US'],
-            htmlEntity: this.getHtmlEntitySettings(settings.mode),
+            htmlEntity: {
+                type: settings.type,
+                onlyInvisible: settings.onlyInvisible
+            },
             enableRule: Object.keys(settings.enableRule || {}),
             disableRule: Object.keys(settings.disableRule || {})
         });
-    },
+    }
 
-    getHtmlEntitySettings: function(mode) {
-        mode = mode || '';
-
-        return {
-            type: mode.replace(/-invisible/, ''),
-            onlyInvisible: mode.search('-invisible') !== -1
-        };
-    },
-
-    typografExecute: function(text) {
+    typografExecute(text) {
         return this._typograf ? this._typograf.execute(text) : text;
     }
-};
+}
 
-App.init();
+new App();

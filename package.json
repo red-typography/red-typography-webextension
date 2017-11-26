@@ -13,8 +13,8 @@
     "typograf": "^6.6.0"
   },
   "devDependencies": {
-    "del": "^2.2.2",
-    "eslint": "3.x",
+    "del": "^3.0.0",
+    "eslint": "4.x",
     "gulp": "3.x",
     "gulp-zip": "^4.0.0"
   },

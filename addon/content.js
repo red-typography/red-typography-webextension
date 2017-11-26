@@ -1,13 +1,14 @@
 'use strict';
 
-var App = {
-    init: function() {
+class App {
+    constructor() {
         browser.runtime.onMessage.addListener(message => {
             if (!message) { return; }
 
+            let obj;
             switch(message.command) {
                 case 'get-text':
-                    var obj = this.getText();
+                    obj = this.getText();
                     obj && browser.runtime.sendMessage(obj);
                 break;
                 case 'set-text':
@@ -15,11 +16,13 @@ var App = {
                 break;
             }
         });
-    },
-    getText: function() {
-        var node = document.activeElement,
+    }
+
+    getText() {
+        const
+            node = document.activeElement,
             propName = this.getPropName(node);
-            
+
         if (!propName) {
             return null;
         }
@@ -30,9 +33,10 @@ var App = {
             selectionStart: node.selectionStart,
             selectionEnd: node.selectionEnd
         };
-    },
-    getPropName: function(node) {
-        var tagName = (node.tagName || '').toLowerCase();
+    }
+
+    getPropName(node) {
+        const tagName = (node.tagName || '').toLowerCase();
         if (tagName === 'input' || tagName === 'textarea') {
             return 'value';
         } else if (node.isContentEditable) {
@@ -40,16 +44,18 @@ var App = {
         }
 
         return null;
-    },
-    setText: function(message) {
-        var node = document.activeElement,
-            text = message.text,
-            isSelectionEqual = message.selectionStart === message.selectionEnd,
-            propName;
+    }
+
+    setText(message) {
+        const
+            node = document.activeElement,
+            isSelectionEqual = message.selectionStart === message.selectionEnd;
+
+        let text = message.text;
 
         if (!node) { return; }
 
-        propName = this.getPropName(node);
+        const propName = this.getPropName(node);
         if (!propName) { return; }
 
         if (!isSelectionEqual) {
@@ -67,6 +73,6 @@ var App = {
             node.selectionEnd = message.selectionStart + message.text.length;
         }
     }
-};
+}
 
-App.init();
+new App();

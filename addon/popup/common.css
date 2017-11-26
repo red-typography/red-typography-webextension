@@ -4,12 +4,8 @@ body {
     padding: 0;
     border: 0;
     width: 400px;
+    overflow-x: hidden;
     height: 550px;
-}
-
-html.firefox,
-body.firefox {
-    overflow: hidden;
 }
 
 html,

@@ -1,10 +1,10 @@
 Object.assign(Typograf, {
     groupsByName: {},
-    getGroupTitle: function(name, lang) {
-        var group = Typograf.groupsByName[name];
+    getGroupTitle(name, lang) {
+        const group = Typograf.groupsByName[name];
         return group.title[lang] || group.title['en-US'];
     },
-    getGroupIndex: function(groupName) {
+    getGroupIndex(groupName) {
         return Typograf.groupsByName[groupName].index;
     }
 });

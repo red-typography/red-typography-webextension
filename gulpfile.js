@@ -1,10 +1,10 @@
 'use strict';
 
-const del = require('del');
-const gulp = require('gulp');
-const zip = require('gulp-zip');
-
-const browsers = ['chrome', 'firefox', 'opera'];
+const
+    del = require('del'),
+    gulp = require('gulp'),
+    zip = require('gulp-zip'),
+    browsers = ['chrome', 'firefox', 'opera'];
 
 gulp.task('del', function() {
 	return del(browsers.map(bro => './addon_' + bro));

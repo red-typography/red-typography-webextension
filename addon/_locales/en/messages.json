@@ -38,23 +38,26 @@
     "locale": {
         "message": "Locale: "
     },
-    "mode": {
+    "type": {
         "message": "HTML entities: "
     },
-    "mode_": {
+    "type_": {
         "message": "UTF-8"
     },
-    "mode_name": {
+    "type_name": {
         "message": "Names"
     },
-    "mode_digit": {
+    "type_digit": {
         "message": "Digits"
     },
-    "mode_name_invisible": {
-        "message": "Names, only for invisible symbols"
+    "example": {
+        "message": "Example: "
     },
-    "mode_digit_invisible": {
-        "message": "Цифры, only for invisible symbols"
+    "only_invisible": {
+        "message": "for invisible symbols"
+    },
+    "only_invisible_example": {
+        "message": "\"A\u00A0Z\""
     },
     "locale_be": {
         "message": "Belarusian"
