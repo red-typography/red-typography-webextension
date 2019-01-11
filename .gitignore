@@ -1,6 +1,6 @@
 addon_firefox
 addon_chrome
 addon_opera
-addon/popup/typograf.all.js
 node_modules
 *.zip
+addon/popup/typograf.all.js
