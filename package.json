@@ -2,7 +2,7 @@
   "title": "Red Typography for web extensions",
   "name": "red-typografy-webextension",
   "description": "Prepare texts in text fields",
-  "version": "6.2.0",
+  "version": "6.3.0",
   "author": {
     "name": "Denis Seleznev",
     "email": "hcodes@yandex.ru",
@@ -14,14 +14,14 @@
   },
   "devDependencies": {
     "del": "^3.0.0",
-    "eslint": "4.x",
-    "gulp": "3.x",
-    "gulp-zip": "^4.0.0"
+    "eslint": "^5.12.0",
+    "gulp": "^4.0.0",
+    "gulp-zip": "^4.2.0"
   },
   "scripts": {
     "build": "gulp",
     "eslint": "eslint .",
-    "test": "npm run-script eslint"
+    "test": "npm run eslint"
   },
   "license": "MIT",
   "private": true
