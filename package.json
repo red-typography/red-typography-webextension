@@ -13,10 +13,10 @@
     "typograf": "^6.6.0"
   },
   "devDependencies": {
-    "del": "^3.0.0",
-    "eslint": "^5.12.0",
-    "gulp": "^4.0.0",
-    "gulp-zip": "^4.2.0"
+    "del": "^5.1.0",
+    "eslint": "^6.5.1",
+    "gulp": "^4.0.2",
+    "gulp-zip": "^5.0.1"
   },
   "scripts": {
     "build": "gulp",
