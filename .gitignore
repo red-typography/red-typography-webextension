@@ -4,3 +4,4 @@ addon_opera
 node_modules
 *.zip
 addon/popup/typograf.all.js
+.DS_Store

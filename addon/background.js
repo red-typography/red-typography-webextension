@@ -9,7 +9,7 @@ class App {
 
     getDefaultLocale(rawLocale) {
         let locale = rawLocale || browser.i18n.getUILanguage();
- 
+
         if (!Typograf.hasLocale(locale)) {
             locale = 'en-US';
         }
@@ -30,14 +30,6 @@ class App {
         const onLoad = data => {
                 if (data.settings) {
                     this._settings = data.settings;
-                    
-                    // TODO: legacy
-                    if (data.settings && data.settings.mode) {
-                        if (data.settings.mode.search('-invisible') !== -1) {
-                            data.settings.type = data.settings.mode.replace('-invisible', '');
-                            data.settings.onlyInvisible = true;
-                        }
-                    }
                 } else {
                     this.initSettings();
                 }

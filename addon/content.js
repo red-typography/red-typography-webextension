@@ -66,6 +66,10 @@ class App {
 
         node[propName] = text;
 
+        // for React
+        const inputEvent = new Event('input', { bubbles: true });
+        node.dispatchEvent(inputEvent);
+
         if (isSelectionEqual) {
             node.selectionStart = node.selectionEnd = message.selectionStart;
         } else {
