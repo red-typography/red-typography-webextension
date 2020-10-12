@@ -10,13 +10,13 @@
   },
   "homepage": "https://github.com/typograf/red-typografy-webextension",
   "dependencies": {
-    "typograf": "^6.10.0"
+    "typograf": "^6.11.1"
   },
   "devDependencies": {
-    "del": "^5.1.0",
-    "eslint": "^6.7.0",
+    "del": "^6.0.0",
+    "eslint": "^7.11.0",
     "gulp": "^4.0.2",
-    "gulp-zip": "^5.0.1"
+    "gulp-zip": "^5.0.2"
   },
   "scripts": {
     "build": "gulp",
