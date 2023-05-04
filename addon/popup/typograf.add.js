@@ -9,7 +9,7 @@ Object.assign(Typograf, {
     }
 });
 
-Typograf.groups.forEach(function(group, i) {
+Typograf.groups.forEach((group, i) => {
     group.index = i;
     Typograf.groupsByName[group.name] = group;
 });

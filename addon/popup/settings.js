@@ -25,11 +25,13 @@ class Settings {
         };
 
         this._typograf = new Typograf({
+            locale: ['ru', 'en-US'],
             disableRule: '*',
             enableRule: ['common/nbsp/*', 'ru/nbsp/*']
         });
 
         this._typografEntities = new Typograf({
+            locale: ['ru', 'en-US'],
             disableRule: '*',
             enableRule: ['common/punctuation/quote']
         });
@@ -240,7 +242,7 @@ class Settings {
     }
 
     rebuildRules() {
-        const groups = this._getSortedGroups(Typograf.prototype._rules, this.langUI);
+        const groups = this._getSortedGroups(Typograf.getRules(), this.langUI);
 
         if (this._rulesContainer) {
             this._rulesContainer.textContent = '';
@@ -250,7 +252,7 @@ class Settings {
             this._container.appendChild(this._rulesContainer);
         }
 
-        groups.forEach(function(group) {
+        groups.forEach((group) => {
             const groupName = group[0]._group;
             const groupTitle = this._typograf.execute(
                 Typograf.getGroupTitle(groupName, this.langUI),
@@ -267,32 +269,31 @@ class Settings {
             fieldset.appendChild(legend);
 
             let counter = 0;
-            group.forEach(function(rule) {
+            group.forEach((rule) => {
                 const dom = this.createRule(rule);
                 if (dom) {
                     fieldset.appendChild(dom);
                     counter++;
                 }
-            }, this);
+            });
 
             counter && this._rulesContainer.appendChild(fieldset);
-        }, this);
+        });
     }
 
     createRule(rule) {
-        const
-            name = rule.name,
-            buf = Typograf.titles[name],
-            title = this._typograf.execute(
-                buf[this.langUI] || buf.common || buf[this.defaultLocale],
-                { locale: [this.langUI, this.defaultLocale] }
-            ),
-            id = 'rule-' + name.replace(/\//g, '-'),
-            defHash = this._defRules();
+        const name = rule.name;
+        const buf = Typograf.titles[name];
+        const title = this._typograf.execute(
+            buf[this.langUI] || buf.common || buf[this.defaultLocale],
+            { locale: [this.langUI, this.defaultLocale] }
+        );
+        const id = 'rule-' + name.replace(/\//g, '-');
+        const defaultRules = this._getDefaultRules();
 
-        let checked = defHash[name];
+        let checked = defaultRules[name];
 
-        if (this._settings.locale !== rule._locale && rule._locale !== 'common') {
+        if (this._settings.locale !== rule.locale && rule.locale !== 'common') {
             return;
         }
 
@@ -383,13 +384,13 @@ class Settings {
         this._updateOnlyInvisibleExample();
     }
 
-    _defRules() {
-        const defHash = {};
-        Typograf.prototype._rules.forEach(function(rule) {
-            defHash[rule.name] = rule.disabled !== true;
+    _getDefaultRules() {
+        const defaultRulesHash = {};
+        Typograf.getRules().forEach((rule) => {
+            defaultRulesHash[rule.name] = rule.enabled;
         });
 
-        return defHash;
+        return defaultRulesHash;
     }
 
     _onDefault() {
@@ -397,13 +398,12 @@ class Settings {
         document.querySelector('.settings__only-invisible').checked = false;
         document.querySelector('.settings__type').selectedIndex = 0;
 
-        const
-            chs = document.querySelectorAll('.settings__rule-checkbox'),
-            defHash = this._defRules();
+        const chs = document.querySelectorAll('.settings__rule-checkbox');
+        const defaultRules = this._getDefaultRules();
 
         for (let i = 0; i < chs.length; i++) {
             let ch = chs[i];
-            ch.checked = defHash[ch.dataset.id];
+            ch.checked = defaultRules[ch.dataset.id];
         }
 
         this._updateOnlyInvisibleExample();
@@ -418,13 +418,13 @@ class Settings {
         this._settings.enableRule = {};
         this._settings.disableRule = {};
 
-        Typograf.prototype._rules.forEach(function(rule) {
+        Typograf.prototype.getRules().forEach((rule) => {
             if (rule.live) {
                 return;
             }
 
             this._settings[checked ? 'enableRule' : 'disableRule'][rule.name] = true;
-        }, this);
+        });
 
         this.save({
             enableRule: this._settings.enableRule,
@@ -448,14 +448,13 @@ class Settings {
     }
 
     _sortByGroupIndex(rules) {
-        rules.sort(function(a, b) {
+        rules.sort((a, b) => {
             if (!a.name || !b.name) {
                 return -1;
             }
 
-            const
-                indexA = Typograf.getGroupIndex(a._group),
-                indexB = Typograf.getGroupIndex(b._group);
+            const indexA = Typograf.getGroupIndex(a._group);
+            const indexB = Typograf.getGroupIndex(b._group);
 
             if (indexA > indexB) {
                 return 1;
@@ -470,14 +469,13 @@ class Settings {
     }
 
     _splitGroups(rules) {
-        let
-            currentGroupName,
-            currentGroup;
+        let currentGroupName;
+        let currentGroup;
 
         const groups = [];
 
-        rules.forEach(function(rule) {
-            const groupName = rule._group;
+        rules.forEach((rule) => {
+            const groupName = rule.group;
 
             if (groupName !== currentGroupName) {
                 currentGroupName = groupName;
@@ -486,7 +484,7 @@ class Settings {
             }
 
             currentGroup.push(rule);
-        }, this);
+        });
 
         return groups;
     }
@@ -496,9 +494,8 @@ class Settings {
 
         groups.forEach(function(group) {
             group.sort(function(a, b) {
-                const
-                    titleA = titles[a.name],
-                    titleB = titles[b.name];
+                const titleA = titles[a.name];
+                const titleB = titles[b.name];
 
                 return (titleA[locale] || titleA.common) > (titleB[locale] || titleB.common) ? 1 : -1;
             });
@@ -508,7 +505,7 @@ class Settings {
     _getSortedGroups(rules, locale) {
         const filteredRules = [];
 
-        rules.forEach(function(el) {
+        rules.forEach((el) => {
             if (!el.live) {
                 filteredRules.push(el);
             }
@@ -524,7 +521,7 @@ class Settings {
     }
 }
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', () => {
     function onLoad(data) {
         new Settings(data.settings);
     }
