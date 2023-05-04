@@ -19,9 +19,8 @@ class App {
     }
 
     getText() {
-        const
-            node = document.activeElement,
-            propName = this.getPropName(node);
+        const node = document.activeElement;
+        const propName = this.getPropName(node);
 
         if (!propName) {
             return null;
@@ -47,9 +46,8 @@ class App {
     }
 
     setText(message) {
-        const
-            node = document.activeElement,
-            isSelectionEqual = message.selectionStart === message.selectionEnd;
+        const node = document.activeElement;
+        const isSelectionEqual = message.selectionStart === message.selectionEnd;
 
         let text = message.text;
 
