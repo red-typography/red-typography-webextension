@@ -1,7 +1,7 @@
 import Typograf from 'typograf';
 import { getBrowser, isChrome } from './utils/browser';
 import { _ } from './utils/i18n';
-import { TypografHtmlEntity } from 'typograf/dist/main';
+import { TypografParams } from './settings';
 
 if (isChrome) {
     importScripts('popup/typograf.all.js');
@@ -9,19 +9,11 @@ if (isChrome) {
 
 const DEFAULT_LOCALE = 'en-US';
 
-interface AppSettings {
-    locale: string;
-    type: TypografHtmlEntity['type'];
-    onlyInvisible: boolean;
-    enableRule: Record<string, true>;
-    disableRule: Record<string, true>;
-}
-
 const browser = getBrowser();
 
 class App {
-    private settings: AppSettings;
-    private typograf: Typograf;
+    private settings!: TypografParams;
+    private typograf!: Typograf;
 
     constructor() {
         this.initSettings();
@@ -50,20 +42,23 @@ class App {
     }
 
     private initStorage() {
-        const onLoad = data => {
-                if (data.settings) {
-                    this.settings = data.settings;
-                } else {
-                    this.initSettings();
-                }
-
-                this.update();
-            },
-            onError = () => {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        const onLoad = (data) => {
+            if (data.settings) {
+                this.settings = data.settings;
+            } else {
                 this.initSettings();
+            }
 
-                this.update();
-            };
+            this.update();
+        }
+
+        const onError = () => {
+            this.initSettings();
+
+            this.update();
+        };
 
         browser.storage.onChanged.addListener(changes => {
             this.settings = changes.settings.newValue;
@@ -100,11 +95,13 @@ class App {
         });
 
         browser.commands.onCommand.addListener((command) => {
-            function getActiveTab(tabs) {
-                for (let tab of tabs) {
-                    browser.tabs.sendMessage(tab.id, {
-                        command: 'get-text'
-                    });
+            function getActiveTab(tabs: chrome.tabs.Tab[]) {
+                for (const tab of tabs) {
+                    if (tab && tab.id) {
+                        browser.tabs.sendMessage(tab.id, {
+                            command: 'get-text'
+                        });
+                    }
                 }
             }
 
@@ -114,7 +111,7 @@ class App {
 					browser.tabs.query(params, getActiveTab);
 				} else {
 					const querying = browser.tabs.query(params);
-					querying.then(getActiveTab, () => {});
+					querying.then(getActiveTab);
 				}
             }
         });
@@ -140,6 +137,7 @@ class App {
     }
 
     private updateActionButton() {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         const action = window.browser.action || window.browser.browser_action; // Fix for Firefox
 

@@ -1,10 +1,12 @@
 import { Settings } from '../settings';
-import { isChrome } from '../utils/browser';
+import { getBrowser, isChrome } from '../utils/browser';
 
 import './index.css';
 
+const browser = getBrowser();
+
 document.addEventListener('DOMContentLoaded', () => {
-    function onLoad(data) {
+    function onLoad(data: any) {
         new Settings(data.settings);
     }
 

@@ -1,13 +1,24 @@
-// @ts-ignore
+import { getBrowser } from './utils/browser';
+
+export interface TypografMessage {
+    text: string;
+    oldText: string;
+    selectionStart: number;
+    selectionEnd: number;
+}
+
 const browser = getBrowser();
 
 browser.runtime.onMessage.addListener(message => {
-    if (!message) { return; }
-    let obj;
+    if (!message) {
+        return;
+    }
+
     switch(message.command) {
-        case 'get-text':
-            obj = getText();
+        case 'get-text': {
+            const obj = getText();
             obj && browser.runtime.sendMessage(obj);
+        }
         break;
         case 'set-text':
             setText(message);
@@ -31,7 +42,7 @@ function getText() {
     };
 }
 
-function getPropName(node) {
+function getPropName(node: HTMLInputElement | HTMLTextAreaElement) {
     const tagName = (node.tagName || '').toLowerCase();
     if (tagName === 'input' || tagName === 'textarea') {
         return 'value';
@@ -42,9 +53,8 @@ function getPropName(node) {
     return null;
 }
 
-function setText(message) {
+function setText(message: TypografMessage) {
     const node = document.activeElement as (HTMLInputElement | HTMLTextAreaElement);
-    const isSelectionEqual = message.selectionStart === message.selectionEnd;
 
     let text = message.text;
 
@@ -53,7 +63,8 @@ function setText(message) {
     const propName = getPropName(node);
     if (!propName) { return; }
 
-    if (!isSelectionEqual) {
+    const isSelectionEqual = message.selectionStart === message.selectionEnd;
+    if (!isSelectionEqual && node.selectionStart !== null && node.selectionEnd !== null) {
         text = message.oldText.substring(0, node.selectionStart) +
             message.text +
             message.oldText.substring(node.selectionEnd);

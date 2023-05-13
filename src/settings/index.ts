@@ -7,7 +7,7 @@ import './index.css';
 
 const browser = getBrowser();
 
-interface TypografParams {
+export interface TypografParams {
     locale: string;
     onlyInvisible: boolean;
     enableRule: Record<string, boolean>;
@@ -58,6 +58,10 @@ export class Settings {
         this.buildOptions();
         this.rebuildRules();
         this.createFooterBlock();
+
+        this.rulesContainer = document.createElement('div');
+        this.rulesContainer.className = 'settings__all-rules';
+        this.container.appendChild(this.rulesContainer);
 
         document.body.appendChild(this.container);
 
@@ -262,13 +266,7 @@ export class Settings {
     rebuildRules() {
         const groups = this.getSortedGroups(window.Typograf.getRules(), this.langUI);
 
-        if (this.rulesContainer) {
-            this.rulesContainer.textContent = '';
-        } else {
-            this.rulesContainer = document.createElement('div');
-            this.rulesContainer.className = 'settings__all-rules';
-            this.container.appendChild(this.rulesContainer);
-        }
+        this.rulesContainer.textContent = '';
 
         groups.forEach(group => {
             const groupName = group[0].group;
@@ -420,7 +418,7 @@ export class Settings {
     }
 
     private getDefaultRules() {
-        const defaultRulesHash = {};
+        const defaultRulesHash: Record<string, boolean> = {};
 
         window.Typograf.getRules().forEach((rule) => {
             defaultRulesHash[rule.name] = rule.enabled;
