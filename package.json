@@ -9,10 +9,9 @@
     "url": "https://github.com/typograf/red-typografy-webextension"
   },
   "homepage": "https://github.com/typograf/red-typografy-webextension",
-  "dependencies": {
-    "typograf": "^7.0.0"
-  },
   "devDependencies": {
+    "@types/chrome": "^0.0.235",
+    "typograf": "^7.1.0",
     "del": "^6.0.0",
     "eslint": "^8.39.0",
     "gulp": "^4.0.2",

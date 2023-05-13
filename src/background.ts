@@ -1,36 +1,58 @@
-// importScripts('popup/typograf.all.js');
-// importScripts('popup/browser.js');
+import Typograf from 'typograf';
+import { getBrowser, isChrome } from './utils/browser';
+import { _ } from './utils/i18n';
+import { TypografHtmlEntity } from 'typograf/dist/main';
+
+if (isChrome) {
+    importScripts('popup/typograf.all.js');
+}
+
+const DEFAULT_LOCALE = 'en-US';
+
+interface AppSettings {
+    locale: string;
+    type: TypografHtmlEntity['type'];
+    onlyInvisible: boolean;
+    enableRule: Record<string, true>;
+    disableRule: Record<string, true>;
+}
+
+const browser = getBrowser();
 
 class App {
+    private settings: AppSettings;
+    private typograf: Typograf;
+
     constructor() {
         this.initSettings();
         this.initStorage();
         this.initMenus();
     }
 
-    getDefaultLocale(rawLocale) {
+    private getDefaultLocale(rawLocale: string) {
         let locale = rawLocale || browser.i18n.getUILanguage();
 
-        if (!Typograf.hasLocale(locale)) {
-            locale = 'en-US';
+        if (!window.Typograf.hasLocale(locale)) {
+            locale = DEFAULT_LOCALE;
         }
 
         return locale;
     }
 
-    initSettings() {
-        this._settings = {
+    private initSettings() {
+        this.settings = {
             locale: this.getDefaultLocale(''),
-            type: '',
+            type: 'default',
+            onlyInvisible: true,
             enableRule: {},
-            disableRule: {}
+            disableRule: {},
         };
     }
 
-    initStorage() {
+    private initStorage() {
         const onLoad = data => {
                 if (data.settings) {
-                    this._settings = data.settings;
+                    this.settings = data.settings;
                 } else {
                     this.initSettings();
                 }
@@ -44,7 +66,7 @@ class App {
             };
 
         browser.storage.onChanged.addListener(changes => {
-            this._settings = changes.settings.newValue;
+            this.settings = changes.settings.newValue;
             this.update();
         });
 
@@ -55,12 +77,12 @@ class App {
         }
     }
 
-    update() {
+    private update() {
         this.updateActionButton();
         this.updateTypograf();
     }
 
-    initMenus() {
+    private initMenus() {
         const menus = browser.contextMenus;
 
         menus.create({
@@ -69,15 +91,15 @@ class App {
             contexts: ['editable']
         });
 
-        menus.onClicked.addListener(function(info, tab) {
-            if (info.menuItemId === 'typograf-do') {
+        menus.onClicked.addListener((info, tab) => {
+            if (tab && tab.id && info.menuItemId === 'typograf-do') {
                 browser.tabs.sendMessage(tab.id, {
                     command: 'get-text'
                 });
             }
         });
 
-        browser.commands.onCommand.addListener(function(command) {
+        browser.commands.onCommand.addListener((command) => {
             function getActiveTab(tabs) {
                 for (let tab of tabs) {
                     browser.tabs.sendMessage(tab.id, {
@@ -86,13 +108,13 @@ class App {
                 }
             }
 
-			const params = {currentWindow: true, active: true};
+			const params = { currentWindow: true, active: true };
             if (command === 'typograf-key') {
 				if (isChrome) {
 					browser.tabs.query(params, getActiveTab);
 				} else {
 					const querying = browser.tabs.query(params);
-					querying.then(getActiveTab, function(){});
+					querying.then(getActiveTab, () => {});
 				}
             }
         });
@@ -104,29 +126,33 @@ class App {
                     text = message.text.substring(message.selectionStart, message.selectionEnd);
                 }
 
-                browser.tabs.sendMessage(data.tab.id, {
-                    command: 'set-text',
-                    oldText: message.text,
-                    text: this.typografExecute(text),
-                    selectionStart: message.selectionStart,
-                    selectionEnd: message.selectionEnd
-                });
+                if (data.tab && data.tab.id) {
+                    browser.tabs.sendMessage(data.tab.id, {
+                        command: 'set-text',
+                        oldText: message.text,
+                        text: this.typografExecute(text),
+                        selectionStart: message.selectionStart,
+                        selectionEnd: message.selectionEnd
+                    });
+                }
             }
         });
     }
 
-    updateActionButton() {
-        const action = browser.action || browser.browser_action; // Fix for Firefox
+    private updateActionButton() {
+        // @ts-ignore
+        const action = window.browser.action || window.browser.browser_action; // Fix for Firefox
 
         action.setBadgeBackgroundColor({color: '#A00'});
         action.setBadgeText({
-            text: this.getDefaultLocale(this._settings.locale).toUpperCase()
+            text: this.getDefaultLocale(this.settings.locale).toUpperCase()
         });
     }
 
-    updateTypograf() {
-        const settings = this._settings;
-        this._typograf = new Typograf({
+    private updateTypograf() {
+        const { settings } = this;
+
+        this.typograf = new window.Typograf({
             locale: [settings.locale, 'en-US'],
             htmlEntity: {
                 type: settings.type,
@@ -137,8 +163,8 @@ class App {
         });
     }
 
-    typografExecute(text) {
-        return this._typograf ? this._typograf.execute(text) : text;
+    private typografExecute(text: string): string {
+        return this.typograf ? this.typograf.execute(text) : text;
     }
 }
 

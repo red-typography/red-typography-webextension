@@ -1,21 +1,22 @@
+// @ts-ignore
+const browser = getBrowser();
+
 browser.runtime.onMessage.addListener(message => {
     if (!message) { return; }
     let obj;
     switch(message.command) {
         case 'get-text':
-            console.log('content4');
             obj = getText();
             obj && browser.runtime.sendMessage(obj);
         break;
         case 'set-text':
-            console.log('content5');
             setText(message);
         break;
     }
 });
 
 function getText() {
-    const node = document.activeElement;
+    const node = document.activeElement as (HTMLInputElement | HTMLTextAreaElement);
     const propName = getPropName(node);
 
     if (!propName) {
@@ -42,7 +43,7 @@ function getPropName(node) {
 }
 
 function setText(message) {
-    const node = document.activeElement;
+    const node = document.activeElement as (HTMLInputElement | HTMLTextAreaElement);
     const isSelectionEqual = message.selectionStart === message.selectionEnd;
 
     let text = message.text;
