@@ -1,5 +1,3 @@
-'use strict';
-
 class Settings {
     constructor(data) {
         this.defaultLocale = 'en-US';
@@ -253,10 +251,10 @@ class Settings {
         }
 
         groups.forEach((group) => {
-            const groupName = group[0]._group;
+            const groupName = group[0].group;
             const groupTitle = this._typograf.execute(
                 Typograf.getGroupTitle(groupName, this.langUI),
-                {locale: this.langUI}
+                { locale: this.langUI }
             );
 
             const fieldset = document.createElement('fieldset');
@@ -418,7 +416,7 @@ class Settings {
         this._settings.enableRule = {};
         this._settings.disableRule = {};
 
-        Typograf.prototype.getRules().forEach((rule) => {
+        Typograf.getRules().forEach((rule) => {
             if (rule.live) {
                 return;
             }
@@ -453,8 +451,8 @@ class Settings {
                 return -1;
             }
 
-            const indexA = Typograf.getGroupIndex(a._group);
-            const indexB = Typograf.getGroupIndex(b._group);
+            const indexA = Typograf.getGroupIndex(a.group);
+            const indexB = Typograf.getGroupIndex(b.group);
 
             if (indexA > indexB) {
                 return 1;
