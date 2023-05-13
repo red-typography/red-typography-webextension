@@ -1,4 +1,5 @@
-'use strict';
+// importScripts('popup/typograf.all.js');
+// importScripts('popup/browser.js');
 
 class App {
     constructor() {
@@ -115,7 +116,7 @@ class App {
     }
 
     updateActionButton() {
-        const action = browser.browserAction;
+        const action = browser.action || browser.browser_action; // Fix for Firefox
 
         action.setBadgeBackgroundColor({color: '#A00'});
         action.setBadgeText({
