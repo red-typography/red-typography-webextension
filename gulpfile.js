@@ -11,12 +11,12 @@ gulp.task('copy-typograf', function() {
     return gulp.src([
             'node_modules/typograf/dist/typograf.all.js'
         ])
-        .pipe(gulp.dest('addon/popup/'));
+        .pipe(gulp.dest('src/popup/'));
 });
 
 browsers.forEach(function(browser) {
 	gulp.task(`${browser}-copy`, function() {
-		return gulp.src([`./addon/**/*`, `./${browser}/**/*`])
+		return gulp.src([`./src/**/*`, `./${browser}/**/*`])
 			.pipe(gulp.dest(`./addon_${browser}`));
 	});
 
