@@ -1,22 +1,18 @@
 {
   "description": "__MSG_extensionDescription__",
-  "manifest_version": 2,
+  "manifest_version": 3,
   "name": "__MSG_extensionName__",
-  "version": "2.3.0",
+  "version": "2.4.0",
   "default_locale": "en",
-
-  "applications": {
-    "gecko": {
-      "id": "@typograf-firefox",
-      "strict_min_version": "68.0"
-    }
-  },
 
   "permissions": [
     "activeTab",
-    "<all_urls>",
     "contextMenus",
     "storage"
+  ],
+
+  "host_permissions": [
+    "*://*/*"
   ],
 
   "commands": {
@@ -46,7 +42,7 @@
     }
   ],
 
-  "browser_action": {
+  "action": {
     "browser_style": true,
     "default_popup": "popup/popup.html",
     "default_icon": {
