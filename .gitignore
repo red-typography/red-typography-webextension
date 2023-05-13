@@ -3,5 +3,6 @@ addon_chrome
 addon_opera
 node_modules
 *.zip
-addon/popup/typograf.all.js
+addon/**/*.js
+addon/**/*.css
 .DS_Store
