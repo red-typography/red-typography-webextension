@@ -1,5 +1,3 @@
-'use strict';
-
 if ('browser' in this) {
     this.isChrome = false;
 } else {
