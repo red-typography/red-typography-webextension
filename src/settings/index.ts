@@ -21,7 +21,6 @@ export class Settings {
     private typograf: Typograf;
     private typografEntities: Typograf;
 
-    private container = document.querySelector('.settings') as HTMLDivElement;
     private rulesContainer: HTMLDivElement;
 
     private typografParams: TypografParams;
@@ -55,20 +54,21 @@ export class Settings {
             enableRule: ['common/punctuation/quote'],
         });
 
-        this.buildOptions();
-        this.rebuildRules();
-        this.createFooterBlock();
-
+        const container = document.querySelector('.settings') as HTMLDivElement;
+        container.appendChild(this.createOptions());
         this.rulesContainer = document.createElement('div');
         this.rulesContainer.className = 'settings__all-rules';
-        this.container.appendChild(this.rulesContainer);
+        this.rulesContainer.appendChild(this.createRulesList());
+        container.appendChild(this.rulesContainer);
 
-        document.body.appendChild(this.container);
+        container.appendChild(this.createFooter());
 
-        this.setEvents();
+        document.body.appendChild(container);
+
+        this.bindEvents();
     }
 
-    private save(keys: Partial<TypografParams>) {
+    private saveTypografParams(keys: Partial<TypografParams>) {
         Object.assign(this.typografParams, keys);
 
         browser.storage.local.set({
@@ -90,33 +90,34 @@ export class Settings {
         return hint;
     }
 
-    private buildOptions() {
-        const container = document.createElement('div');
-        container.className = 'settings__options';
+    private createOptions() {
+        const options = document.createElement('div');
+        options.className = 'settings__options';
 
-        this.createTitleBlock(container);
-        this.createLocaleBlock(container);
-        this.createTypeBlock(container);
-        this.createShortcutBlock(container);
-        this.createRulesBlock(container);
+        options.appendChild(this.createTitleBlock());
+        options.appendChild(this.createLocaleBlock());
+        options.appendChild(this.createTypeBlock());
+        options.appendChild(this.createShortcutBlock());
+        options.appendChild(this.createRulesBlock());
 
-        this.container.appendChild(container);
+        return options;
     }
 
-    private createTitleBlock(container: HTMLElement) {
+    private createTitleBlock() {
         const title = document.createElement('div');
         title.className = 'settings__title';
         title.textContent = _('settings_title');
-        container.appendChild(title);
 
-        const def = document.createElement('a');
-        def.className = 'settings__default';
-        def.href = '#';
-        def.textContent = _('def');
-        title.appendChild(def);
+        const defaultRules = document.createElement('a');
+        defaultRules.className = 'settings__default';
+        defaultRules.href = '#';
+        defaultRules.textContent = _('def');
+        title.appendChild(defaultRules);
+
+        return title;
     }
 
-    private createLocaleBlock(container: HTMLElement) {
+    private createLocaleBlock() {
         const block = document.createElement('div');
         block.className = 'settings__block settings__block_first';
 
@@ -138,10 +139,11 @@ export class Settings {
 
         block.appendChild(localeText);
         block.appendChild(locale);
-        container.appendChild(block);
+
+        return block;
     }
 
-    private createTypeBlock(container: HTMLElement) {
+    private createTypeBlock() {
         const typeText = document.createElement('span');
         typeText.className = 'settings__type-text';
         typeText.textContent = _('type');
@@ -182,10 +184,10 @@ export class Settings {
         block.appendChild(onlyInvisibleLabel);
         block.appendChild(onlyInvisibleExample);
 
-        container.appendChild(block);
+        return block;
     }
 
-    private createShortcutBlock(container: HTMLElement) {
+    private createShortcutBlock() {
         const shortcut = document.createElement('div');
         shortcut.textContent = _('shortcut') + 'ALT+Shift+T';
         shortcut.appendChild(this.buildHint(_('shortcut_using')));
@@ -194,10 +196,10 @@ export class Settings {
         block.className = 'settings__block';
         block.appendChild(shortcut);
 
-        container.appendChild(block);
+        return block;
     }
 
-    private createRulesBlock(container: HTMLElement) {
+    private createRulesBlock() {
         const rulesTitle = document.createElement('div');
         rulesTitle.textContent = _('rules_title');
         rulesTitle.className = 'settings__rules-title';
@@ -223,12 +225,12 @@ export class Settings {
         selectAllContainer.appendChild(selectAllLabel);
         block.appendChild(selectAllContainer);
 
-        container.appendChild(block);
+        return block;
     }
 
-    private createFooterBlock() {
-        const block = document.createElement('div');
-        block.className = 'settings__block';
+    private createFooter() {
+        const footer = document.createElement('div');
+        footer.className = 'settings__block';
 
         const name = document.createElement('a');
         name.className = 'settings__name';
@@ -241,7 +243,7 @@ export class Settings {
         sup.textContent = window.Typograf.version;
 
         name.appendChild(sup);
-        block.appendChild(name);
+        footer.appendChild(name);
 
         const reportBug = document.createElement('a');
         reportBug.className = 'settings__report-bug';
@@ -249,8 +251,9 @@ export class Settings {
         reportBug.target = '_blank';
         reportBug.textContent = _('report-bug');
 
-        block.appendChild(reportBug);
-        this.container.appendChild(block);
+        footer.appendChild(reportBug);
+
+        return footer;
     }
 
     private getInvisibleExample() {
@@ -263,10 +266,9 @@ export class Settings {
         });
     }
 
-    rebuildRules() {
+    private createRulesList() {
+        const container = document.createElement('div');
         const groups = this.getSortedGroups(window.Typograf.getRules(), this.langUI);
-
-        this.rulesContainer.textContent = '';
 
         groups.forEach(group => {
             const groupName = group[0].group;
@@ -293,11 +295,19 @@ export class Settings {
                 }
             });
 
-            counter && this.rulesContainer.appendChild(fieldset);
+            counter && container.appendChild(fieldset);
         });
+
+        return container;
     }
 
-    createRule(rule: TypografRuleInternal) {
+    private updateRulesList() {
+        this.rulesContainer.textContent = '';
+        const rules = this.createRulesList();
+        this.rulesContainer.appendChild(rules);
+    }
+
+    private createRule(rule: TypografRuleInternal) {
         const name = rule.name;
         const buf = window.Typograf.titles[name];
         const title = this.typograf.execute(
@@ -341,16 +351,12 @@ export class Settings {
         return div;
     }
 
-    private setEvents() {
-        function is(target: HTMLElement, name: string) {
-            return target.classList.contains('settings__' + name);
-        }
-
+    private bindEvents() {
         const onlyVisibleElement = document.querySelector('.settings__only-invisible') as HTMLInputElement;
         onlyVisibleElement.addEventListener('click', e => {
             const target = e.target as HTMLInputElement;
 
-            this.save({ onlyInvisible: target.checked });
+            this.saveTypografParams({ onlyInvisible: target.checked });
             this.updateOnlyInvisibleExample();
         });
 
@@ -358,31 +364,21 @@ export class Settings {
         allRules.addEventListener('click', e => {
             const target = e.target as HTMLElement;
 
-            if (is(target, 'legend')) {
-                this.onClickLegend(target as HTMLLegendElement);
+            if (target.classList.contains('settings__legend')) {
+                this.handleLegendClick(e);
             }
 
-            if (is(target, 'rule-checkbox')) {
-                this.onClickRule(target as HTMLInputElement);
+            if (target.classList.contains('settings__rule-checkbox')) {
+                this.handleRuleClick(target as HTMLInputElement);
             }
         });
 
         const selectAllElement = document.querySelector('.settings__select-all') as HTMLInputElement;
-        selectAllElement.addEventListener('click', e => {
-            const target = e.target as HTMLInputElement;
-            this.onSelectAll(target.checked);
-        });
+        selectAllElement.addEventListener('click', this.handleSelectAllClick);
 
         const defaultElement = document.querySelector('.settings__default') as HTMLDivElement;
         defaultElement.addEventListener('click', () => {
-            this.save({
-                disableRule: {},
-                enableRule: {},
-                type: 'default',
-                onlyInvisible: false,
-            });
-
-            this.onDefault();
+            this.handleDefaultClick();
         });
 
         const typeElement = document.querySelector('.settings__type') as HTMLSelectElement;
@@ -394,17 +390,12 @@ export class Settings {
             const target = e.target as HTMLSelectElement;
             const type = target.value as TypografHtmlEntity['type'];
 
-            this.save({ type });
+            this.saveTypografParams({ type });
             this.updateOnlyInvisibleExample();
         });
 
         const localeElement = document.querySelector('.settings__locale') as HTMLSelectElement;
-        localeElement.addEventListener('change', e => {
-            const target = e.target as HTMLSelectElement;
-            const locale = target.value as string;
-            this.save({ locale });
-            this.onLocale();
-        });
+        localeElement.addEventListener('change', this.handleLocaleChange);
     }
 
     private updateOnlyInvisibleExample() {
@@ -412,8 +403,12 @@ export class Settings {
         exampleElement.innerText = this.getInvisibleExample();
     }
 
-    private onLocale() {
-        this.rebuildRules();
+    private handleLocaleChange(e: Event) {
+        const target = e.target as HTMLSelectElement;
+        const locale = target.value as string;
+
+        this.saveTypografParams({ locale });
+        this.updateRulesList();
         this.updateOnlyInvisibleExample();
     }
 
@@ -427,7 +422,7 @@ export class Settings {
         return defaultRulesHash;
     }
 
-    private onDefault() {
+    private handleDefaultClick = () => {
         const selectAllElement = document.querySelector('.settings__select-all') as HTMLInputElement;
         selectAllElement.checked = false;
 
@@ -449,9 +444,19 @@ export class Settings {
         }
 
         this.updateOnlyInvisibleExample();
+
+        this.saveTypografParams({
+            disableRule: {},
+            enableRule: {},
+            type: 'default',
+            onlyInvisible: false,
+        });
     }
 
-    private onSelectAll(checked: boolean) {
+    private handleSelectAllClick(e: Event) {
+        const target = e.target as HTMLInputElement;
+        const { checked } = target;
+
         const checkboxes = document.querySelectorAll<HTMLInputElement>('.settings__rule-checkbox');
         for (let i = 0; i < checkboxes.length; i++) {
             checkboxes[i].checked = checked;
@@ -468,20 +473,21 @@ export class Settings {
             this.typografParams[checked ? 'enableRule' : 'disableRule'][rule.name] = true;
         });
 
-        this.save({
+        this.saveTypografParams({
             enableRule: this.typografParams.enableRule,
             disableRule: this.typografParams.disableRule,
         });
     }
 
-    private onClickLegend(elem: HTMLElement) {
-        const parentNode = elem.parentNode as HTMLElement;
+    private handleLegendClick(e: Event) {
+        const target = e.target as HTMLLegendElement
+        const parentNode = target.parentNode as HTMLElement;
         if (parentNode) {
             parentNode.classList.toggle('settings__fieldset_visible');
         }
     }
 
-    private onClickRule(elem: HTMLInputElement) {
+    private handleRuleClick(elem: HTMLInputElement) {
         const checked = elem.checked;
         const name = elem.dataset.id;
 
@@ -493,7 +499,7 @@ export class Settings {
         delete this.typografParams.disableRule[name];
         this.typografParams[checked ? 'enableRule' : 'disableRule'][name] = true;
 
-        this.save({});
+        this.saveTypografParams({});
     }
 
     private sortByGroupIndex(rules: TypografRuleInternal[]) {

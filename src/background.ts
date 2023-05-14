@@ -1,13 +1,11 @@
 import Typograf from 'typograf';
 import { getBrowser, isChrome } from './utils/browser';
-import { _ } from './utils/i18n';
+import { DEFAULT_LOCALE, _ } from './utils/i18n';
 import { TypografParams } from './settings';
 
 if (isChrome) {
     importScripts('popup/typograf.all.js');
 }
-
-const DEFAULT_LOCALE = 'en-US';
 
 const browser = getBrowser();
 
@@ -139,7 +137,7 @@ class App {
     private updateActionButton() {
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
-        const action = window.browser.action || window.browser.browser_action; // Fix for Firefox
+        const action = browser.action || browser.browser_action; // Fix for Firefox
 
         action.setBadgeBackgroundColor({color: '#A00'});
         action.setBadgeText({
@@ -151,7 +149,7 @@ class App {
         const { settings } = this;
 
         this.typograf = new window.Typograf({
-            locale: [settings.locale, 'en-US'],
+            locale: [settings.locale, DEFAULT_LOCALE],
             htmlEntity: {
                 type: settings.type,
                 onlyInvisible: settings.onlyInvisible
