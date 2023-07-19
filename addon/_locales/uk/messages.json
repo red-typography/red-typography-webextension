@@ -1,0 +1,149 @@
+{
+    "extensionName": {
+        "message": "Red Typography"
+    },
+    "extensionDescription": {
+        "message": "Типографування тексту в полях для вводу."
+    },
+    "commandShortcut": {
+        "message": "Оттипографувати текст в текстовому полі"
+    },
+    "typograf": {
+        "message": "Типограф"
+    },
+    "typograf_execute": {
+        "message": "Оттипографувати"
+    },
+    "report_bug": {
+        "message": "Повідомити про помилку"
+    },
+    "shortcut": {
+        "message": "Клавіші: "
+    },
+    "shortcut_using": {
+        "message": "Використовуйте у текстових полях."
+    },
+    "settings_title": {
+        "message": "Налаштування"
+    },
+    "rules_title": {
+        "message": "Правила"
+    },
+    "selectAll": {
+        "message": "Обрати все"
+    },
+    "def": {
+        "message": "За замовчуванням"
+    },
+    "locale": {
+        "message": "Мова: "
+    },
+    "type": {
+        "message": "HTML-сутності: "
+    },
+    "type_": {
+        "message": "UTF-8"
+    },
+    "type_name": {
+        "message": "Імена"
+    },
+    "type_digit": {
+        "message": "Цифри"
+    },
+    "example": {
+        "message": "Приклад: "
+    },
+    "only_invisible": {
+        "message": "для прихованих символів"
+    },
+    "only_invisible_example": {
+        "message": "\"А\u00A0Я\""
+    },
+    "locale_be": {
+        "message": "Білоруська"
+    },
+    "locale_bg": {
+        "message": "Болгарська"
+    },
+    "locale_ca": {
+        "message": "Каталонська"
+    },
+    "locale_cs": {
+        "message": "Чешська"
+    },
+    "locale_da": {
+        "message": "Датська"
+    },
+    "locale_de": {
+        "message": "Німецька"
+    },
+    "locale_el": {
+        "message": "Грецька"
+    },
+    "locale_en_GB": {
+        "message": "Англійська"
+    },
+    "locale_en_US": {
+        "message": "Американська"
+    },
+    "locale_eo": {
+        "message": "Есперанто"
+    },
+    "locale_es": {
+        "message": "Іспанська"
+    },
+    "locale_et": {
+        "message": "Естонська"
+    },
+    "locale_fi": {
+        "message": "Фінська"
+    },
+    "locale_fr": {
+        "message": "Французська"
+    },
+    "locale_ga": {
+        "message": "Ірландська"
+    },
+    "locale_hu": {
+        "message": "Угорська"
+    },
+    "locale_it": {
+        "message": "Італьянська"
+    },
+    "locale_lv": {
+        "message": "Латвійська"
+    },
+    "locale_nl": {
+        "message": "Голандська"
+    },
+    "locale_no": {
+        "message": "Норвежська"
+    },
+    "locale_pl": {
+        "message": "Польска"
+    },
+    "locale_ro": {
+        "message": "Румунська"
+    },
+    "locale_ru": {
+        "message": "Російська"
+    },
+    "locale_sk": {
+        "message": "Словацька"
+    },
+    "locale_sl": {
+        "message": "Словенська"
+    },
+    "locale_sr": {
+        "message": "Сербська"
+    },
+    "locale_sv": {
+        "message": "Шведська"
+    },
+    "locale_tr": {
+        "message": "Турецька"
+    },
+    "locale_uk": {
+        "message": "Українська"
+    }
+}
