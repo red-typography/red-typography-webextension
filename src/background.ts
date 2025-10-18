@@ -22,7 +22,7 @@ class App {
     private getDefaultLocale(rawLocale: string) {
         let locale = rawLocale || browser.i18n.getUILanguage();
 
-        if (!window.Typograf.hasLocale(locale)) {
+        if (!Typograf.hasLocale(locale)) {
             locale = DEFAULT_LOCALE;
         }
 
@@ -148,7 +148,7 @@ class App {
     private updateTypograf() {
         const { settings } = this;
 
-        this.typograf = new window.Typograf({
+        this.typograf = new Typograf({
             locale: [settings.locale, DEFAULT_LOCALE],
             htmlEntity: {
                 type: settings.type,
