@@ -41,7 +41,7 @@
     "type": {
         "message": "HTML-сущности: "
     },
-    "type_": {
+    "type_default": {
         "message": "UTF-8"
     },
     "type_name": {
