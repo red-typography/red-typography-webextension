@@ -26,8 +26,6 @@
 
   "background": {
     "scripts": [
-        "popup/browser.js",
-        "popup/typograf.all.js",
         "background.js"
     ]
   },

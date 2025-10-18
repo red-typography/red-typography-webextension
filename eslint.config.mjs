@@ -7,6 +7,7 @@ export default [
     ignores: [
       '.*',
       'addon/**',
+      'addon_*',
       'node_modules/**',
       'dist/**',
     ]
