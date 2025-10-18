@@ -1,6 +1,6 @@
 {
     "extensionName": {
-        "message": "Red Typography"
+        "message": "Typofraf"
     },
     "extensionDescription": {
         "message": "Typography in text fields."
@@ -49,6 +49,9 @@
     },
     "type_digit": {
         "message": "Digits"
+    },
+    "type_js": {
+        "message": "JS"
     },
     "example": {
         "message": "Example: "

@@ -1,6 +1,6 @@
 {
     "extensionName": {
-        "message": "Red Typography"
+        "message": "Типограф"
     },
     "extensionDescription": {
         "message": "Типографування тексту в полях для вводу."
@@ -49,6 +49,9 @@
     },
     "type_digit": {
         "message": "Цифри"
+    },
+    "type_js": {
+        "message": "JS"
     },
     "example": {
         "message": "Приклад: "
