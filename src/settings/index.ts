@@ -1,4 +1,5 @@
-import Typograf, { TypografHtmlEntity, TypografRuleInternal } from 'typograf';
+import type Typograf from 'typograf';
+import type { TypografHtmlEntity, TypografRuleInternal } from 'typograf';
 import { DEFAULT_LOCALE, _ } from '../utils/i18n';
 import { getTypografGroupIndex, getTypografGroupTitle } from '../utils/typograf';
 import { getBrowser } from '../utils/browser';
@@ -6,6 +7,12 @@ import { getBrowser } from '../utils/browser';
 import './index.css';
 
 const browser = getBrowser();
+const defaultParams: Omit<TypografParams, 'locale'> = {
+    disableRule: {},
+    enableRule: {},
+    type: 'default',
+    onlyInvisible: true,
+};
 
 export interface TypografParams {
     locale: string;
@@ -35,20 +42,20 @@ export class Settings {
         this.langUI = langUI;
 
         this.typografParams = {
-            locale: params.locale || langUI,
-            type: params.type || 'default',
-            onlyInvisible: params.onlyInvisible || false,
-            enableRule: params.enableRule || {},
-            disableRule: params.disableRule || {}
+            locale: params.locale ?? langUI,
+            type: params.type ?? defaultParams.type,
+            onlyInvisible: params.onlyInvisible ?? defaultParams.onlyInvisible,
+            enableRule: params.enableRule ?? defaultParams.enableRule,
+            disableRule: params.disableRule ?? defaultParams.disableRule,
         };
 
-        this.typograf = new Typograf({
+        this.typograf = new window.Typograf({
             locale: ['ru', 'en-US'],
             disableRule: '*',
             enableRule: ['common/nbsp/*', 'ru/nbsp/*'],
         });
 
-        this.typografEntities = new Typograf({
+        this.typografEntities = new window.Typograf({
             locale: ['ru', 'en-US'],
             disableRule: '*',
             enableRule: ['common/punctuation/quote'],
@@ -132,7 +139,10 @@ export class Settings {
             const option = document.createElement('option');
             option.value = item;
             option.selected = this.typografParams.locale === item;
-            option.textContent = _('locale_' + item);
+
+            const quotesData = window.Typograf.getData(`${item}/quote`) as { left: string; right: string };
+            const quotes = quotesData.left + quotesData.right.split('').reverse().join('');
+            option.textContent = _('locale_' + item) + ' ' + quotes;
 
             locale.appendChild(option);
         });
@@ -151,7 +161,7 @@ export class Settings {
         const type = document.createElement('select');
         type.className = 'settings__type';
 
-        ['default', 'name', 'digit'].forEach(item => {
+        ['default', 'name', 'digit', 'js'].forEach(item => {
             const option = document.createElement('option');
             option.value = item;
             option.selected = this.typografParams.type === item;
@@ -295,7 +305,9 @@ export class Settings {
                 }
             });
 
-            counter && container.appendChild(fieldset);
+            if (counter) {
+                container.appendChild(fieldset);
+            }
         });
 
         return container;
@@ -374,7 +386,9 @@ export class Settings {
         });
 
         const selectAllElement = document.querySelector('.settings__select-all') as HTMLInputElement;
-        selectAllElement.addEventListener('click', this.handleSelectAllClick);
+        selectAllElement.addEventListener('click', e => {
+            this.handleSelectAllClick(e);
+        });
 
         const defaultElement = document.querySelector('.settings__default') as HTMLDivElement;
         defaultElement.addEventListener('click', () => {
@@ -395,7 +409,9 @@ export class Settings {
         });
 
         const localeElement = document.querySelector('.settings__locale') as HTMLSelectElement;
-        localeElement.addEventListener('change', this.handleLocaleChange);
+        localeElement.addEventListener('change', e => {
+            this.handleLocaleChange(e);
+        });
     }
 
     private updateOnlyInvisibleExample() {
@@ -427,10 +443,10 @@ export class Settings {
         selectAllElement.checked = false;
 
         const onlyVisibleElement = document.querySelector('.settings__only-invisible') as HTMLInputElement;
-        onlyVisibleElement.checked = false;
+        onlyVisibleElement.checked = defaultParams.onlyInvisible;
 
         const typeElement = document.querySelector('.settings__type') as HTMLSelectElement;
-        typeElement.selectedIndex = 0;
+        typeElement.value = defaultParams.type;
 
         const checkboxes = document.querySelectorAll<HTMLInputElement>('.settings__rule-checkbox');
         const defaultRules = this.getDefaultRules();
@@ -445,12 +461,7 @@ export class Settings {
 
         this.updateOnlyInvisibleExample();
 
-        this.saveTypografParams({
-            disableRule: {},
-            enableRule: {},
-            type: 'default',
-            onlyInvisible: false,
-        });
+        this.saveTypografParams(defaultParams);
     }
 
     private handleSelectAllClick(e: Event) {
@@ -465,7 +476,7 @@ export class Settings {
         this.typografParams.enableRule = {};
         this.typografParams.disableRule = {};
 
-        Typograf.getRules().forEach((rule) => {
+        window.Typograf.getRules().forEach((rule) => {
             if (rule.live) {
                 return;
             }
