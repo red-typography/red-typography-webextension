@@ -22,7 +22,8 @@
     "rollup": "^4.52.5",
     "rollup-plugin-import-css": "^4.0.2",
     "typograf": "^7.6.0",
-    "tslib": "^2.8.1"
+    "tslib": "^2.8.1",
+    "@rollup/plugin-node-resolve": "^16.0.3"
   },
   "scripts": {
     "copy-typograf": "cp ./node_modules/typograf/dist/typograf.all.js ./addon/popup/typograf.all.js",
