@@ -188,3 +188,7 @@
 .settings__report-bug {
     margin-left: 1em;
 }
+
+.settings__locale-text {
+    margin-right: .5em;
+}
