@@ -3,6 +3,7 @@ import type { TypografHtmlEntity, TypografRuleInternal } from 'typograf';
 import { DEFAULT_LOCALE, _ } from '../utils/i18n';
 import { getTypografGroupIndex, getTypografGroupTitle } from '../utils/typograf';
 import { getBrowser } from '../utils/browser';
+import { emojiFlags } from './emoji';
 
 import './index.css';
 
@@ -142,7 +143,7 @@ export class Settings {
 
             const quotesData = window.Typograf.getData(`${item}/quote`) as { left: string; right: string };
             const quotes = quotesData.left + quotesData.right.split('').reverse().join('');
-            option.textContent = _('locale_' + item) + ' ' + quotes;
+            option.textContent = (emojiFlags[item] || '') + ' ' + _('locale_' + item) + ' ' + quotes;
 
             locale.appendChild(option);
         });
