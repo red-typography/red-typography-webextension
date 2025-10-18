@@ -3,6 +3,7 @@ import type { TypografHtmlEntity, TypografRuleInternal } from 'typograf';
 import { DEFAULT_LOCALE, _ } from '../utils/i18n';
 import { getTypografGroupIndex, getTypografGroupTitle } from '../utils/typograf';
 import { getBrowser } from '../utils/browser';
+import { getHotKeys } from '../utils/getHotKeys';
 import { emojiFlags } from './emoji';
 
 import './index.css';
@@ -200,7 +201,7 @@ export class Settings {
 
     private createShortcutBlock() {
         const shortcut = document.createElement('div');
-        shortcut.textContent = _('shortcut') + 'ALT+Shift+T';
+        shortcut.textContent = _('shortcut') + getHotKeys();
         shortcut.appendChild(this.buildHint(_('shortcut_using')));
 
         const block = document.createElement('div');
