@@ -1,4 +1,4 @@
-export const isChrome = !('browser' in window);
+export const isChrome = !('browser' in globalThis);
 
 export function getBrowser() {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
