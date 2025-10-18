@@ -7,7 +7,7 @@ export default [
     {
         input: 'src/content.ts',
         output: {
-            format: 'umd',
+            format: 'iife',
             file: './addon/content.js'
         },
         plugins,
@@ -15,7 +15,7 @@ export default [
     {
         input: 'src/background.ts',
         output: {
-            format: 'umd',
+            format: 'iife',
             file: './addon/background.js'
         },
         plugins,
@@ -23,13 +23,13 @@ export default [
     {
         input: 'src/popup/index.ts',
         output: {
-            format: 'umd',
+            format: 'iife',
             file: './addon/popup/index.js'
         },
         plugins: [
             ...plugins,
             css({
-                output: './addon/popup/index.css',
+                output: 'index.css',
             }),
         ],
     }
