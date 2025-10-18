@@ -78,6 +78,7 @@ class App {
     private initMenus() {
         const menus = browser.contextMenus;
 
+        menus.removeAll();
         menus.create({
             id: 'typograf-do',
             title: _('typograf_execute'),
