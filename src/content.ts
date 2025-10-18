@@ -17,7 +17,9 @@ browser.runtime.onMessage.addListener(message => {
     switch(message.command) {
         case 'get-text': {
             const obj = getText();
-            obj && browser.runtime.sendMessage(obj);
+            if (obj) {
+                browser.runtime.sendMessage(obj);
+            }
         }
         break;
         case 'set-text':
