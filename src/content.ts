@@ -75,8 +75,8 @@ function setText(message: TypografMessage) {
     node[propName] = text;
 
     // for React
-    const inputEvent = new Event('input', { bubbles: true });
-    node.dispatchEvent(inputEvent);
+    node.dispatchEvent(new Event('input', { bubbles: true }));
+    node.dispatchEvent(new Event('change', { bubbles: true }));
 
     if (isSelectionEqual) {
         node.selectionStart = node.selectionEnd = message.selectionStart;
